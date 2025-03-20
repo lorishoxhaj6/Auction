@@ -6,7 +6,7 @@ pragma solidity ^0.8.28;
 
 contract Auction {
     
-    uint public auctionEndTime;
+    uint public auctionEndTime; 
     address payable public owner;
     address public highestBidder;
     uint public highestBid;
