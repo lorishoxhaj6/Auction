@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
-
 contract Auction {
+
     uint public auctionEndTime;
     address payable public owner;
     address public highestBidder;
@@ -21,7 +19,7 @@ contract Auction {
         ended = false;
     }
 
-    //funzione per fare un offerta
+    // Funzione per fare un'offerta
     function bid() public payable endAuction("The Auction is end.", false) {
         require(msg.value > highestBid, "Another bid is higher than yours.");
 
@@ -35,7 +33,7 @@ contract Auction {
         highestBidder = msg.sender;
     }
 
-    // funzione per ritirare il rimborso chiamabile da tutti gli offerenti
+    // Funzione per ritirare il rimborso
     function withdraw()
         public
         endAuction(
@@ -57,16 +55,19 @@ contract Auction {
         require(success, "Transfer failed");
     }
 
+    // Modificatore per controllare se l'esecutore è il proprietario
     modifier onlyOwner(string memory s) {
         require(msg.sender == owner, s);
         _; // poi fai quello che c'è sotto la funzione
     }
 
+    // Modificatore per controllare lo stato dell'asta
     modifier endAuction(string memory s, bool _ended) {
         require(ended == _ended, s);
         _;
     }
 
+    // Funzione per terminare l'asta
     function auctionEnd()
         public
         onlyOwner("The Auction has to be ended by the owner.")
@@ -82,10 +83,12 @@ contract Auction {
         owner.transfer(highestBid);
     }
 
+    // Funzione per ottenere il rimborso di un offerente
     function getRefund(address bidder) public view returns (uint) {
         return refund[bidder];
     }
 
+    // Funzione per verificare se l'asta è terminata
     function getEnded() public view returns (bool) {
         return ended;
     }

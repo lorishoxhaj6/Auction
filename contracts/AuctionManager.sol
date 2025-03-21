@@ -8,6 +8,7 @@ contract AuctionManager {
 
     event AuctionCreated(Auction auctionAdress, address owner);
 
+    // Funzione per aggiungere un'asta
     // Crea una nuova asta e la registra nel gestore
     function AddAuction(Auction newAuction) public {
         // collega l'asta ad un gestore
@@ -16,6 +17,7 @@ contract AuctionManager {
         emit AuctionCreated(newAuction, msg.sender);
     }
 
+    // Funzione per ottenere il numero totale di aste
     // Ottieni il numero di aste create
     function getAuctionCount() external view returns (uint) {
         return auctions.length;
