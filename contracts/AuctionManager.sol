@@ -18,7 +18,7 @@ contract AuctionManager {
     }
 
     // Funzione per ottenere il numero totale di aste
-    // Ottieni il numero di aste create
+    
     function getAuctionCount() external view returns (uint) {
         return auctions.length;
     }
